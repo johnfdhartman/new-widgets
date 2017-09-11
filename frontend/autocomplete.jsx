@@ -1,50 +1,57 @@
 import React from 'react';
-
-
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class Autocomplete extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
       inputVal: '',
-      matches: []
-    };
+        };
   }
 
 
   render () {
-    const searchNames = this.searchNames;
-    const listNames = this.state.matches.map( (name) =>
-      <li>{name}</li>
-    );
+    // const searchNames = this.searchNames;
+    // const listNames = this.state.matches.map( (name) =>
+    //   <li>{name}</li>
+    // );
     return (
-      <div id='Autocomplete'>
-        <input type='text' onChange={this.searchNames.bind(this)}/>
+      <div id='autocomplete' className='widget'>
+        <input type='text' onChange={this.changeInputVal.bind(this)}/>
         <ul>
-          {this.state.matches}
+          <ReactCSSTransitionGroup
+            id='auto-transition-group'
+            transitionName='auto'
+            transitionEnterTimeout={700}
+            transitionLeaveTimeout={700}>
+            {this.searchNames.bind(this)()}
+          </ReactCSSTransitionGroup>
         </ul>
       </div>
     );
   }
 
+  changeInputVal(event) {
+    this.setState({inputVal: event.currentTarget.value});
+  }
 
-  searchNames (event) {
-    this.setState({inputVal: event.target.value});
-    let inputVal = this.state.inputVal;
-    let names = this.props.names;
-    let matches = [];
-    // console.log('halp');
-    for (let i = 0; i < names.length; i++) {
-      // console.log(names[i]);
-      let nameStart = names[i].slice(0, inputVal.length);
-      if (nameStart === inputVal) {
-        // console.log(nameStart, names[i]);
-        matches.push(names[i]);
+  searchNames () {
+    let names = [];
+    for (let i = 0; i < this.props.names.length; i++) {
+      let slice = this.props.names[i].slice(0, this.state.inputVal.length);
+      if (slice.toUpperCase() === this.state.inputVal.toUpperCase()) {
+        names.push(this.props.names[i]);
       }
     }
-    this.setState({matches: matches});
-    console.log(this.state.matches, matches);
+    return (
+      names.map( (name) =>
+        <li key={name}>
+          {name}
+        </li>
+      )
+    );
   }
+
 }
 
 export default Autocomplete;

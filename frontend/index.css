@@ -11,6 +11,7 @@
   box-sizing: auto;
   margin: 10px;
   -webkit-box-sizing: border-box;
+  width: 45%;
 
 }
 
@@ -23,7 +24,6 @@
   background-size: cover;
   background-position: center;
   flex-basis: auto;
-  width: 45%;
 }
 
 #clock div {
@@ -38,7 +38,7 @@
   background-color: #ffadad;
   font-family: 'Raleway', sans-serif;
   font-size: 3.4vw;
-  width: 45%;
+
 }
 
 #weather .table {
@@ -58,4 +58,52 @@
   align-items: center;
   text-align: center;
   padding: 5px;
+}
+
+#autocomplete {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Quattrocento Sans', sans-serif;
+  text-align: center;
+  background-color: #87b5ff;
+  height: 300px;
+}
+
+#autocomplete input {
+  margin: 0 auto;
+  display: flex;
+  width: 33%;
+}
+
+#autocomplete ul {
+  /*display: flex;
+  flex-direction: column;
+  justify-content: space-around;*/
+}
+
+#autocomplete ul li {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.auto-enter {
+  opacity: 0.01;
+  color: white;
+}
+
+.auto-enter.auto-enter-active {
+  opacity: 1;
+  color: black;
+  transition: opacity 700ms ease-in, color 400ms ease-in;
+}
+
+.auto-leave {
+  opacity: 1;
+  color: black;
+}
+
+.auto-leave.auto-leave-active {
+  opacity: 0;
+  color: white;
+  transition: opacity 700ms ease-in, color 700ms ease-in;
 }
